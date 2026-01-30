@@ -16,7 +16,7 @@
     "expo": "~52.0.0",
     "expo-asset": "~11.0.5",
     "expo-build-properties": "~0.13.3",
-    "expo-constants": "^18.0.13",
+    "expo-constants": "^17.0.8",
     "expo-dev-client": "~5.0.20",
     "expo-status-bar": "~2.0.0",
     "lucide-react-native": "^0.469.0",
