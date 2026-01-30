@@ -33,7 +33,10 @@ yarn-error.log*
 # secrets
 *.jks
 .env*
+
+# release
 *.apk
+*.aab
 
 # typescript
 *.tsbuildinfo
