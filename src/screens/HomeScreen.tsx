@@ -20,6 +20,7 @@ const leagues = [
 
 export default function HomeScreen() {
     const isDev = Constants.expoConfig?.extra?.APP_VARIANT !== 'production';
+    const adBanner = Constants.expoConfig?.extra?.AD_BANNER || AD_BANNER;
     const { isSpoilerFree, toggleSpoilerFree } = useSettings();
 
     return (
@@ -81,7 +82,7 @@ export default function HomeScreen() {
             </Tab.Navigator>
             <View style={{ alignItems: 'center' }}>
                 <BannerAd
-                    unitId={__DEV__ || isDev ? TestIds.BANNER : AD_BANNER}
+                    unitId={__DEV__ || isDev ? TestIds.BANNER : adBanner}
                     size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
                 />
             </View>

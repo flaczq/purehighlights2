@@ -10,7 +10,10 @@
       "android": {
         "buildType": "apk",
         "env": {
-          "APP_VARIANT": "development"
+          "APP_VARIANT": "development",
+          "API_TOKEN": "$API_TOKEN",
+          "AD_BANNER": "$AD_BANNER",
+          "AD_INTERSTITIAL": "$AD_INTERSTITIAL"
         }
       }
     },
@@ -19,7 +22,10 @@
       "android": {
         "buildType": "apk",
         "env": {
-          "APP_VARIANT": "preview"
+          "APP_VARIANT": "preview",
+          "API_TOKEN": "$API_TOKEN",
+          "AD_BANNER": "$AD_BANNER",
+          "AD_INTERSTITIAL": "$AD_INTERSTITIAL"
         }
       }
     },
@@ -28,7 +34,10 @@
       "android": {
         "buildType": "app-bundle",
         "env": {
-          "APP_VARIANT": "production"
+          "APP_VARIANT": "production",
+          "API_TOKEN": "$API_TOKEN",
+          "AD_BANNER": "$AD_BANNER",
+          "AD_INTERSTITIAL": "$AD_INTERSTITIAL"
         }
       }
     }

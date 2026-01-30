@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Constants from 'expo-constants';
 import { COMMON_API_TOKEN, API_TOKEN } from '@env';
 
 export interface Video {
@@ -28,9 +29,10 @@ const API_BASE_URL = 'https://www.scorebat.com/video-api/v3/';
 
 export const fetchMatches = async (competitionSlug?: string): Promise<Match[]> => {
     try {
-        let url = `${API_BASE_URL}feed/?token=${API_TOKEN}`;
+        const apiToken = Constants.expoConfig?.extra?.API_TOKEN || API_TOKEN;
+        let url = `${API_BASE_URL}feed/?token=${apiToken}`;
         if (competitionSlug) {
-            url = `${API_BASE_URL}competition/${competitionSlug}/?token=${API_TOKEN}`;
+            url = `${API_BASE_URL}competition/${competitionSlug}/?token=${apiToken}`;
         }
 
         const response = await axios.get(url);

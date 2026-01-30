@@ -11,6 +11,7 @@ import { AD_INTERSTITIAL } from '@env';
 
 export default function VideoPlayerScreen() {
     const isDev = Constants.expoConfig?.extra?.APP_VARIANT !== 'production';
+    const adInterstitial = Constants.expoConfig?.extra?.AD_INTERSTITIAL || AD_INTERSTITIAL;
     const route = useRoute<any>();
     const navigation = useNavigation();
     const match: Match = route.params?.match;
@@ -22,7 +23,7 @@ export default function VideoPlayerScreen() {
     const startTime = useRef(Date.now());
 
     useEffect(() => {
-        const ad = InterstitialAd.createForAdRequest(__DEV__ || isDev ? TestIds.INTERSTITIAL : AD_INTERSTITIAL, {
+        const ad = InterstitialAd.createForAdRequest(__DEV__ || isDev ? TestIds.INTERSTITIAL : adInterstitial, {
             requestNonPersonalizedAdsOnly: true,
         });
 
