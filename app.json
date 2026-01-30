@@ -19,15 +19,12 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.flaq.antigravity.purehighlights",
+      "package": "com.antigravity.purehighlights",
       "versionCode": 1
     },
     "web": {
@@ -46,8 +43,7 @@
       [
         "react-native-google-mobile-ads",
         {
-          "androidAppId": "ca-app-pub-4504926431130481~9893327848",
-          "iosAppId": "ca-app-pub-4504926431130481~9893327848"
+          "androidAppId": "ca-app-pub-4504926431130481~9893327848"
         }
       ]
     ],
