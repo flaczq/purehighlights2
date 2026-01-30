@@ -6,10 +6,11 @@ import { X, Search, Youtube, Link as LinkIcon, AlertCircle, Play } from 'lucide-
 import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
 import { Match, parseMatchTitle, getBestVideo, getAlternativeSources, AlternativeSource } from '../services/api';
 import { useSettings } from '../context/SettingsContext';
-import axios from 'axios';
+import Constants from 'expo-constants';
 import { AD_INTERSTITIAL } from '@env';
 
 export default function VideoPlayerScreen() {
+    const isDev = Constants.expoConfig?.extra?.APP_VARIANT !== 'production';
     const route = useRoute<any>();
     const navigation = useNavigation();
     const match: Match = route.params?.match;
@@ -21,7 +22,7 @@ export default function VideoPlayerScreen() {
     const startTime = useRef(Date.now());
 
     useEffect(() => {
-        const ad = InterstitialAd.createForAdRequest(AD_INTERSTITIAL, {
+        const ad = InterstitialAd.createForAdRequest(__DEV__ || isDev ? TestIds.INTERSTITIAL : AD_INTERSTITIAL, {
             requestNonPersonalizedAdsOnly: true,
         });
 

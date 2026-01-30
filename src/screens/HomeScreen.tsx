@@ -4,6 +4,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import MatchListScreen from './MatchListScreen';
 import { useSettings } from '../context/SettingsContext';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import Constants from 'expo-constants';
 import { AD_BANNER } from '@env';
 
 const Tab = createMaterialTopTabNavigator();
@@ -18,6 +19,7 @@ const leagues = [
 ];
 
 export default function HomeScreen() {
+    const isDev = Constants.expoConfig?.extra?.APP_VARIANT !== 'production';
     const { isSpoilerFree, toggleSpoilerFree } = useSettings();
 
     return (
@@ -79,7 +81,7 @@ export default function HomeScreen() {
             </Tab.Navigator>
             <View style={{ alignItems: 'center' }}>
                 <BannerAd
-                    unitId={AD_BANNER}
+                    unitId={__DEV__ || isDev ? TestIds.BANNER : AD_BANNER}
                     size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
                 />
             </View>
