@@ -1,0 +1,59 @@
+{
+  "expo": {
+    "name": "Pure Highlights 2.0",
+    "slug": "pure-highlights-2",
+    "version": "0.2.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff",
+      "dark": {
+        "image": "./assets/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#000000"
+      }
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.antigravity.purehighlights"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ],
+      "expo-asset",
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": process.env.ADMOB_APP_ID,
+          "iosAppId": process.env.ADMOB_APP_ID
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "1f7922ed-7b1f-43a0-b5af-e83595af3fff"
+      }
+    }
+  }
+}
