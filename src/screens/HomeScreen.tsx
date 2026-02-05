@@ -82,7 +82,7 @@ export default function HomeScreen() {
             </Tab.Navigator>
             <View style={{ alignItems: 'center' }}>
                 <BannerAd
-                    unitId={__DEV__ || isDev ? TestIds.BANNER : adBanner}
+                    unitId={Constants.expoConfig?.extra?.AD_BANNER}
                     size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
                 />
             </View>

@@ -23,7 +23,7 @@ export default function VideoPlayerScreen() {
     const startTime = useRef(Date.now());
 
     useEffect(() => {
-        const ad = InterstitialAd.createForAdRequest(__DEV__ || isDev ? TestIds.INTERSTITIAL : adInterstitial, {
+        const ad = InterstitialAd.createForAdRequest(Constants.expoConfig?.extra?.AD_INTERSTITIAL, {
             requestNonPersonalizedAdsOnly: true,
         });
 
