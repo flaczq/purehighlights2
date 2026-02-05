@@ -15,7 +15,10 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
     };
 
     return (
-        <SettingsContext.Provider value={{ isSpoilerFree, toggleSpoilerFree }}>
+        <SettingsContext.Provider value={{
+            isSpoilerFree,
+            toggleSpoilerFree
+        }}>
             {children}
         </SettingsContext.Provider>
     );

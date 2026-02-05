@@ -3,6 +3,7 @@ import { View, Text, Switch, StyleSheet, SafeAreaView, TouchableOpacity, StatusB
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import MatchListScreen from './MatchListScreen';
 import { useSettings } from '../context/SettingsContext';
+
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import Constants from 'expo-constants';
 import { AD_BANNER } from '@env';
@@ -10,13 +11,14 @@ import { AD_BANNER } from '@env';
 const Tab = createMaterialTopTabNavigator();
 
 const leagues = [
-    { name: 'ENG', label: 'Premier League', query: 'England', icon: require('../../assets/premier_league_icon.png') },
-    { name: 'ESP', label: 'La Liga', query: 'Spain', icon: require('../../assets/la_liga_icon.png') },
-    { name: 'GER', label: 'Bundesliga', query: 'Germany', icon: require('../../assets/bundesliga_icon.png') },
-    { name: 'ITA', label: 'Serie A', query: 'Italy', icon: require('../../assets/serie_a_icon.png') },
-    { name: 'FRA', label: 'Ligue 1', query: 'France', icon: require('../../assets/ligue_1_icon.png') },
-    { name: 'UCL', label: 'Champions League', query: 'Champions League', icon: require('../../assets/champions_league_icon.png') },
+    { name: 'ENG', label: 'Premier League', query: 'England', scorebatSlug: 'england-premier-league', apiFootballId: 39, highlightlyId: 39, icon: require('../../assets/premier_league_icon.png') },
+    { name: 'ESP', label: 'La Liga', query: 'Spain', scorebatSlug: 'spain-la-liga', apiFootballId: 140, highlightlyId: 140, icon: require('../../assets/la_liga_icon.png') },
+    { name: 'GER', label: 'Bundesliga', query: 'Germany', scorebatSlug: 'germany-bundesliga', apiFootballId: 78, highlightlyId: 78, icon: require('../../assets/bundesliga_icon.png') },
+    { name: 'ITA', label: 'Serie A', query: 'Italy', scorebatSlug: 'italy-serie-a', apiFootballId: 135, highlightlyId: 135, icon: require('../../assets/serie_a_icon.png') },
+    { name: 'FRA', label: 'Ligue 1', query: 'France', scorebatSlug: 'france-ligue-1', apiFootballId: 61, highlightlyId: 61, icon: require('../../assets/ligue_1_icon.png') },
+    { name: 'UCL', label: 'Champions League', query: 'Champions League', scorebatSlug: 'champions-league', apiFootballId: 2, highlightlyId: 104, icon: require('../../assets/champions_league_icon.png') },
 ];
+
 
 export default function HomeScreen() {
     const isDev = Constants.expoConfig?.extra?.APP_VARIANT !== 'production';
@@ -56,7 +58,13 @@ export default function HomeScreen() {
                         key={league.name}
                         name={league.name}
                         component={MatchListScreen}
-                        initialParams={{ league: league.query }}
+                        initialParams={{
+                            league: league.query,
+                            scorebatSlug: league.scorebatSlug,
+                            apiFootballId: league.apiFootballId,
+                            highlightlyId: league.highlightlyId
+                        }}
+
                         options={{
                             tabBarLabel: league.label,
                             tabBarIcon: ({ focused }) => (
@@ -114,6 +122,7 @@ const styles = StyleSheet.create({
     },
     spoilerText: {
         color: 'white',
-        fontSize: 14,
+        fontSize: 12,
     },
 });
+

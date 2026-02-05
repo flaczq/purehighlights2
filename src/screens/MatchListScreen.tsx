@@ -17,14 +17,20 @@ export default function MatchListScreen() {
     const loadMatches = async () => {
         setLoading(true);
         let results: Match[] = [];
-        if (leagueSlug) {
-            results = await fetchMatches(leagueSlug);
-        } else {
-            const allMatches = await fetchMatches();
-            results = filterMatchesByLeague(allMatches, leagueName);
-        }
+
+        // fetchMatches now uses the internal ACTIVE_PROVIDER by default
+        results = await fetchMatches(
+            undefined,
+            leagueName,
+            route.params?.scorebatSlug,
+            route.params?.apiFootballId,
+            route.params?.highlightlyId
+        );
+
+
 
         // Sort by date descending (newest first)
+
         results.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
         setMatches(results);

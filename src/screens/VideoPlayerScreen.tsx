@@ -4,7 +4,8 @@ import { WebView } from 'react-native-webview';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { X, Search, Youtube, Link as LinkIcon, AlertCircle, Play } from 'lucide-react-native';
 import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
-import { Match, parseMatchTitle, getBestVideo, getAlternativeSources, AlternativeSource } from '../services/api';
+import { Match, Video, parseMatchTitle, getBestVideo, getAlternativeSources, AlternativeSource, fetchHighlightForMatchHighlightly } from '../services/api';
+
 import { useSettings } from '../context/SettingsContext';
 import Constants from 'expo-constants';
 import { AD_INTERSTITIAL } from '@env';
@@ -75,11 +76,26 @@ export default function VideoPlayerScreen() {
     const [selectedSource, setSelectedSource] = React.useState<AlternativeSource | { name: string, url: string, type: string } | null>(null);
     const [isLoading, setIsLoading] = React.useState(false);
     const [playableUrl, setPlayableUrl] = React.useState<string | null>(null);
+    const [matchVideos, setMatchVideos] = React.useState<Video[]>(match.videos || []);
 
     // Cache for resolved direct URLs: { [originalUrl]: resolvedUrl }
     const [resolvedUrls, setResolvedUrls] = React.useState<Record<string, string>>({});
 
-    const bestVideo = getBestVideo(match.videos);
+    // Fetch Highlights if needed (Specifically for Highlightly)
+    useEffect(() => {
+        const fetchHl = async () => {
+            if (match.sourceProvider === 'highlightly' && match.id && matchVideos.length === 0) {
+                console.log('Fetching Highlightly videos for match:', match.id);
+                setIsLoading(true);
+                const vids = await fetchHighlightForMatchHighlightly(match.id);
+                setMatchVideos(vids);
+                setIsLoading(false);
+            }
+        };
+        fetchHl();
+    }, [match.id, match.sourceProvider, matchVideos.length]);
+
+    const bestVideo = getBestVideo(matchVideos);
     const altSources = getAlternativeSources(match);
 
     // Background Scraper to find direct video links
@@ -144,7 +160,7 @@ export default function VideoPlayerScreen() {
             }
         };
         resolveAll();
-    }, [match]); // Run once per match
+    }, [match, altSources]); // Run once per match
 
     const handleSourceSelect = async (source: any) => {
         setSelectedSource(source);
@@ -169,7 +185,7 @@ export default function VideoPlayerScreen() {
     };
 
     React.useEffect(() => {
-        // Initially use ScoreBat if available
+        // Initially use best video if available (or wait for it if fetching)
         if (bestVideo) {
             const source = {
                 name: 'Standard',
@@ -177,11 +193,13 @@ export default function VideoPlayerScreen() {
                 type: 'embed'
             };
             setSelectedSource(source);
+        } else if (matchVideos.length === 0 && match.sourceProvider === 'highlightly') {
+            // Just wait for fetchHl
         } else {
             const firstAlt = altSources[0];
             handleSourceSelect(firstAlt);
         }
-    }, [match]);
+    }, [matchVideos, bestVideo, altSources, match.sourceProvider]);
 
     const getHtmlForEmbed = (embed: string) => `
         <!DOCTYPE html>
